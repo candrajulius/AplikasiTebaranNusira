@@ -44,21 +44,25 @@ class MainUtama: AppCompatActivity()
     }
 
     private fun setClickItemCardView() {
-        binding.tindakanBahaya.setOnClickListener {
-            val intent = Intent(this@MainUtama, InputData::class.java)
-            intent.putExtra("position", 1)
-            startActivity(intent,ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainUtama).toBundle())
+
+        with(binding){
+            tindakanBahaya.setOnClickListener {
+                val intent = Intent(this@MainUtama, InputData::class.java)
+                intent.putExtra("position", 1)
+                startActivity(intent,ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainUtama).toBundle())
+            }
+            kondisiBahaya.setOnClickListener {
+                val intent = Intent(this@MainUtama, InputData::class.java)
+                intent.putExtra("position", 2)
+                startActivity(intent,ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainUtama).toBundle())
+            }
+            pencemaran.setOnClickListener {
+                val intent = Intent(this@MainUtama, InputData::class.java)
+                intent.putExtra("position", 3)
+                startActivity(intent,ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainUtama).toBundle())
+            }
         }
-        binding.kondisiBahaya.setOnClickListener {
-            val intent = Intent(this@MainUtama, InputData::class.java)
-            intent.putExtra("position", 2)
-            startActivity(intent,ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainUtama).toBundle())
-        }
-        binding.pencemaran.setOnClickListener {
-            val intent = Intent(this@MainUtama, InputData::class.java)
-            intent.putExtra("position", 3)
-            startActivity(intent,ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainUtama).toBundle())
-        }
+
     }
 
     private fun checkSelfPermission(){

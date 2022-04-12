@@ -48,13 +48,15 @@ object Animation {
 
         val alertDialog = builder.create()
 
-        view.findViewById<ImageButton>(R.id.btn_close).setOnClickListener {
-            alertDialog.dismiss()
+        with(view){
+            findViewById<ImageButton>(R.id.btn_close).setOnClickListener {
+                alertDialog.dismiss()
+            }
+
+            findViewById<MaterialTextView>(R.id.textFolder).text = "File anda berada di: $file"
         }
 
-        view.findViewById<MaterialTextView>(R.id.textFolder).text = "File anda berada di: $file"
-
-        if (alertDialog.window != null){
+        alertDialog.window?.let {
             alertDialog.window!!.setBackgroundDrawable(ColorDrawable(0))
         }
 

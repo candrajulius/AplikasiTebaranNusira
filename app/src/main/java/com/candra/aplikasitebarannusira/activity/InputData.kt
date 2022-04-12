@@ -108,20 +108,24 @@ class InputData: AppCompatActivity()
     }
 
     private fun setClikcConfirmation(gambar: Bitmap){
-            val inputLokasi = binding.inputLokasi.text.toString()
-            val inputTemuan = binding.inputTemuan.text.toString()
-            val inputNama = binding.namaPenemu.text.toString()
-            val nikPenemu = binding.nikPenemu.text.toString()
-            val bagian = binding.inputBagianPenemu.text.toString()
+
+        with(binding){
+            val inputLokasi = inputLokasi.text.toString()
+            val inputTemuan = inputTemuan.text.toString()
+            val inputNama = namaPenemu.text.toString()
+            val nikPenemu = nikPenemu.text.toString()
+            val bagian = inputBagianPenemu.text.toString()
 
             if (inputLokasi.isEmpty() || inputTemuan.isEmpty() || inputNama.isEmpty() || nikPenemu.isEmpty() ||
-                    bagian.isEmpty())
+                bagian.isEmpty())
             {
                 Toast.makeText(this@InputData,"Mohon isi inputan data dengna benar!!",Toast.LENGTH_SHORT).show()
             }else{
                 Pdf.cetakPdf(binding.titleInput.text.toString(),inputLokasi,gambar,inputTemuan,inputNama,nikPenemu,bagian,binding.btnKirim,this@InputData)
                 binding.btnKirim.isEnabled = true
             }
+        }
+
     }
 
     private fun setToolbar(){
