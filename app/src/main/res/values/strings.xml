@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AplikasiTebaranNusira</string>
+    <string name="tindakan_bahaya">Temu Tindakan Bahaya</string>
+    <string name="kondisi_bahaya">Temu Kondisi Bahaya</string>
+    <string name="pencemaran">Pencemaran</string>
+    <string name="description_text">Terima kasih kami ucapkan kepada Bapak dan Ibu yang telah melaporkan  temuanya kepada kami Tim SHE. Dengan temuan ini sangat membantu kami Tim SHE yang selalu berupaya mencegah terjadinya kecelakaan kerja dilingkungan kerja.</string>
+</resources>
