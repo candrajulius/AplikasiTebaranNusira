@@ -1,34 +1,33 @@
 package com.candra.aplikasitebarannusira.activity
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Color
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.transition.Explode
-import android.view.Window
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import coil.load
 import com.candra.aplikasitebarannusira.R
 import com.candra.aplikasitebarannusira.`object`.Pdf
 import com.candra.aplikasitebarannusira.databinding.InputLayoutBinding
+import com.candra.aplikasitebarannusira.helper.createCustomTemptFile
+import com.candra.aplikasitebarannusira.helper.formatDate
+import com.candra.aplikasitebarannusira.helper.uriToFile
+import java.io.File
 
-@Suppress("DEPRECATION")
+
 class InputData: AppCompatActivity()
 {
 
-    companion object{
-        const val REQUEST_CODE_CAMERA = 1
-        const val REQUEST_CODE_GALLERY = 2
-    }
 
     private lateinit var binding: InputLayoutBinding
 
-    @SuppressLint("ResourceAsColor")
+    private var getFile: File? = null
+    private lateinit var currentPhoto: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = InputLayoutBinding.inflate(layoutInflater)
@@ -37,12 +36,9 @@ class InputData: AppCompatActivity()
 
         binding.btnKirim.isEnabled = true
 
+
+
         binding.apply {
-            if (!btnKirim.isEnabled){
-                btnKirim.setBackgroundColor(R.color.colorDisable)
-            }else if(btnKirim.isEnabled) {
-                btnKirim.setBackgroundColor(R.color.colorPrimary)
-            }
             btnCamera.setOnClickListener {
                 setActivateCamera()
             }
@@ -53,62 +49,43 @@ class InputData: AppCompatActivity()
                 Pdf.sharePdf(binding.titleInput.text.toString(),this@InputData)
             }
             backArrow.setOnClickListener {
-                finish()
+                onBackPressed()
             }
+            btnKonfirmasi.setOnClickListener {
+                setClikcConfirmation()
+            }
+            tanggalSkrng.text = formatDate
         }
+
+
         setToolbar()
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK){
-            when(requestCode){
-                REQUEST_CODE_CAMERA ->{
-                    val bitmap = data?.extras?.get("data") as Bitmap
-                    binding.apply {
-                        imagePenemu.load(bitmap){
-                            crossfade(true)
-                            crossfade(1000)
-                            placeholder(R.drawable.ic_baseline_image_24)
-                            error(R.drawable.ic_baseline_broken_image_24)
-                        }
-                        btnKonfirmasi.setOnClickListener {
-                            setClikcConfirmation(bitmap)
-                        }
-                    }
-                }
-                REQUEST_CODE_GALLERY -> {
-                    val uri = data?.data
-                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver,uri)
-                    binding.apply {
-                        imagePenemu.load(bitmap){
-                            crossfade(true)
-                            crossfade(1000)
-                            placeholder(R.drawable.ic_baseline_image_24)
-                            error(R.drawable.ic_baseline_broken_image_24)
-                        }
-                        btnKonfirmasi.setOnClickListener {
-                            setClikcConfirmation(bitmap)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     private fun setActivateCamera(){
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(intent, REQUEST_CODE_CAMERA)
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+            resolveActivity(packageManager)
+        }
+
+        createCustomTemptFile(application).also {
+            val photoUri: Uri = FileProvider.getUriForFile(
+                this@InputData,
+                "$packageName.provider",
+                it
+            )
+
+            currentPhoto = it.absolutePath
+            intent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri)
+            launcherIntentCamera.launch(intent)
+        }
     }
 
     private fun setActivateGallery(){
        val intent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-       startActivityForResult(intent, REQUEST_CODE_GALLERY)
+       launcherIntentGallery.launch(intent)
     }
 
-    private fun setClikcConfirmation(gambar: Bitmap){
-
+    private fun setClikcConfirmation(){
         with(binding){
             val inputLokasi = inputLokasi.text.toString()
             val inputTemuan = inputTemuan.text.toString()
@@ -116,12 +93,16 @@ class InputData: AppCompatActivity()
             val nikPenemu = nikPenemu.text.toString()
             val bagian = inputBagianPenemu.text.toString()
 
+            val path = getFile?.absolutePath
+
+            val bitmap = BitmapFactory.decodeFile(path)
+
             if (inputLokasi.isEmpty() || inputTemuan.isEmpty() || inputNama.isEmpty() || nikPenemu.isEmpty() ||
-                bagian.isEmpty())
+                bagian.isEmpty() || getFile == null)
             {
-                Toast.makeText(this@InputData,"Mohon isi inputan data dengna benar!!",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@InputData,"Mohon isi inputan data dengan benar!!",Toast.LENGTH_SHORT).show()
             }else{
-                Pdf.cetakPdf(binding.titleInput.text.toString(),inputLokasi,gambar,inputTemuan,inputNama,nikPenemu,bagian,binding.btnKirim,this@InputData)
+                Pdf.cetakPdf(binding.titleInput.text.toString(),inputLokasi,bitmap,inputTemuan,inputNama,nikPenemu,bagian,this@InputData)
                 binding.btnKirim.isEnabled = true
             }
         }
@@ -131,12 +112,52 @@ class InputData: AppCompatActivity()
     private fun setToolbar(){
         val position = intent.getIntExtra("position",0)
         binding.apply {
-            if (position == 1){
-                titleInput.text = resources.getString(R.string.tindakan_bahaya)
-            }else if (position == 2){
-                titleInput.text = resources.getString(R.string.kondisi_bahaya)
-            }else if (position == 3){
-                titleInput.text = resources.getString(R.string.pencemaran)
+            when (position) {
+                1 -> {
+                    titleInput.text = resources.getString(R.string.tindakan_bahaya)
+                }
+                2 -> {
+                    titleInput.text = resources.getString(R.string.kondisi_bahaya)
+                }
+                3 -> {
+                    titleInput.text = resources.getString(R.string.pencemaran)
+                }
+            }
+        }
+    }
+
+    private val launcherIntentCamera = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){
+        if (it.resultCode == RESULT_OK){
+            val myFile = File(currentPhoto)
+
+            getFile = myFile
+
+            val result = BitmapFactory.decodeFile(getFile?.path)
+
+            binding.imagePenemu.load(result){
+                crossfade(true)
+                crossfade(600)
+                placeholder(R.drawable.ic_baseline_broken_image_24)
+            }
+        }
+    }
+
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){
+        if (it.resultCode == RESULT_OK){
+            val selectedImg = it.data?.data as Uri
+
+            val myFile = uriToFile(selectedImg,this@InputData)
+
+            getFile = myFile
+
+            binding.imagePenemu.load(selectedImg){
+                crossfade(true)
+                crossfade(600)
+                placeholder(R.drawable.ic_baseline_broken_image_24)
             }
         }
     }

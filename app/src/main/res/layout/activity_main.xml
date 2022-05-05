@@ -35,9 +35,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Aplikasi Tebaran"
+                android:text="@string/name_app"
                 android:textAlignment="center"
-                android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -65,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:text="Menu Tebaran Tindakan"
+            android:text="@string/menu_tebaran"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -107,7 +106,7 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/icon_tindakan_bahaya" />
+                        android:src="@drawable/tindakan_bahaya" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
@@ -141,7 +140,7 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/icon_kondisi_bahaya" />
+                        android:src="@drawable/kondisi_bahaya" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
@@ -175,7 +174,7 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/icon_pencemaran" />
+                        android:src="@drawable/pencemaran" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"

@@ -35,6 +35,8 @@ class MainUtama: AppCompatActivity()
 
         checkSelfPermission()
 
+
+
         Animation.playAnimationContentMain(
             binding.tindakanBahaya,
             binding.kondisiBahaya,
