@@ -100,7 +100,7 @@ class MainUtama: AppCompatActivity()
                     "Jika anda tidak mengaktifkan fiturnya maka aplikasi tidak dapat digunakan" +
                     "SIlahkan tekan tombol Peri Ke Setting untuk mengaktifkan perizinan")
             .setTitle("Peringatan")
-            .setIcon(R.mipmap.ic_launcher_app)
+            .setIcon(R.mipmap.ic_launcher)
             .setPositiveButton("Pergi Ke Setting"){_,_ ->
 
                 try {
