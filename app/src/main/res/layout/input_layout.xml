@@ -18,11 +18,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.168">
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            android:id="@+id/backArrow" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:focusable="true"
+            android:clickable="true"
+            app:cardCornerRadius="5dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:id="@+id/backArrow"
+                android:contentDescription="@string/kembali" />
+
+        </com.google.android.material.card.MaterialCardView>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,11 +44,10 @@
                 android:id="@+id/title_input"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Aplikasi Tebaran"
+                android:text="@string/name_app"
                 android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -103,6 +113,17 @@
 
                     </LinearLayout>
 
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_height="wrap_content"
+                        tools:text="Tanggal skrng"
+                        android:id="@+id/tanggal_skrng"
+                        />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -116,7 +137,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Lokasi"
-                            android:textColor="@color/black"
                             android:textSize="14sp" />
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -129,7 +149,6 @@
                             android:inputType="text"
                             android:minHeight="50dp"
                             android:scrollbars="vertical"
-                            android:textColor="@color/black"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -204,7 +223,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Temuan"
-                            android:textColor="@color/black"
                             android:textSize="14sp" />
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -216,7 +234,6 @@
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:textColor="@color/black"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -251,7 +268,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Nama"
-                            android:textColor="@color/black"
                             android:textSize="14sp" />
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -262,7 +278,6 @@
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:textColor="@color/black"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -280,7 +295,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Nik"
-                            android:textColor="@color/black"
                             android:textSize="14sp" />
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -292,7 +306,6 @@
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:textColor="@color/black"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -310,7 +323,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Bagian"
-                            android:textColor="@color/black"
                             android:textSize="14sp" />
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -322,7 +334,6 @@
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:textColor="@color/black"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -358,6 +369,7 @@
                     android:layout_weight="1"
                     android:layout_margin="30dp"
                     android:text="Kirim"
+                    app:backgroundTint="@color/colorPrimary"
                     android:textAllCaps="false"
                     android:theme="@style/Theme.MaterialComponents"
                     android:textColor="@color/white"

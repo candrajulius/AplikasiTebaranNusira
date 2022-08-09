@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import androidx.core.content.FileProvider
-import com.google.android.material.button.MaterialButton
 import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.io.source.ByteArrayOutputStream
 import com.itextpdf.kernel.geom.PageSize
@@ -21,25 +20,26 @@ import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
 import com.itextpdf.layout.property.HorizontalAlignment
 import com.itextpdf.layout.property.TextAlignment
+import com.itextpdf.layout.property.VerticalAlignment
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-@Suppress("DEPRECATION")
 @SuppressLint("ObsoleteSdkInt")
 object Pdf{
-    fun cetakPdf(namePath: String,lokasi: String,gambar: Bitmap,temuan: String,namaPenemu: String,nikPenemu: String,bagianPenemu: String,button: MaterialButton
-    ,context: Context){
-        val path: String = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
+    fun cetakPdf(namePath: String,lokasi: String,gambar: Bitmap,temuan: String,namaPenemu: String,nikPenemu: String,bagianPenemu: String, context: Context){
+
+
+        val storage = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
 
         val simpleDateFormat = SimpleDateFormat("EEEE,dd-MMM-yyyy",Locale.getDefault()).format(
             Date()
         )
 
-        val dateNow = simpleDateFormat
+        val fileDate = File(storage, "$simpleDateFormat $namePath.pdf")
 
-        val file = File(path,"$dateNow $namePath.pdf")
 
-        val writer = PdfWriter(file)
+
+        val writer = PdfWriter(fileDate)
         val pdfDocument = PdfDocument(writer)
         val document = Document(pdfDocument)
 
@@ -52,11 +52,11 @@ object Pdf{
             TextAlignment.LEFT
         )
 
-       val dateAndTime = Paragraph("Dibuat pada tanggal :$dateNow dan waktu: $waktu").setFontSize(18F).setTextAlignment(
+       val dateAndTime = Paragraph("Dibuat pada tanggal :$simpleDateFormat dan waktu: $waktu").setFontSize(18F).setTextAlignment(
            TextAlignment.LEFT)
 
         val width = floatArrayOf(100F,100F,100F,100F,100F,100F)
-        val tableData = Table(width)
+        val tableData = Table(width).setVerticalAlignment(VerticalAlignment.MIDDLE)
 
         tableData.addCell(Cell().add(Paragraph("Lokasi")))
         tableData.addCell(Cell().add(Paragraph("Foto Temuan")))
@@ -78,37 +78,39 @@ object Pdf{
         tableData.addCell(Cell().add(Paragraph(nikPenemu)))
         tableData.addCell(Cell().add(Paragraph(bagianPenemu)))
 
+
         document.add(paragraphTitle)
         document.add(dateAndTime)
         document.add(tableData)
 
         document.close()
 
-        Animation.showDialog(context = context,file.toString())
+        Animation.showDialog(context = context,storage.toString())
     }
 
     fun sharePdf(namePath: String, context: Context){
-        val simpelDateFormat = SimpleDateFormat("EEEE,dd-MMM-yyyy", Locale.getDefault()).format(
+
+        val simpleDateFormat = SimpleDateFormat("EEEE,dd-MMM-yyyy",Locale.getDefault()).format(
             Date()
         )
-        val dateNow: String = simpelDateFormat
-        val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val file = File(path,"$dateNow $namePath.pdf")
 
-       val pdfUri: Uri?
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            pdfUri = FileProvider.getUriForFile(context,context.packageName + ".provider",file)
+        val storage = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+
+        val filePath = File(storage,"$simpleDateFormat $namePath.pdf")
+
+
+       val pdfUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            FileProvider.getUriForFile(context,context.packageName + ".provider",filePath)
         }else{
-            pdfUri = Uri.fromFile(file)
+            Uri.fromFile(filePath)
         }
 
-        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+       Intent(Intent.ACTION_SEND).apply {
             type = "application/pdf"
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             putExtra(Intent.EXTRA_STREAM,pdfUri)
             setPackage("com.whatsapp")
-        }
-        context.startActivity(shareIntent)
+        }.also { context.startActivity(it) }
     }
 }
