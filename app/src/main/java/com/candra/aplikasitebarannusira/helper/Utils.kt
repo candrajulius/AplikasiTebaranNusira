@@ -15,6 +15,8 @@ import java.util.*
 private const val FILENAME_FORMAT = "dd-MMM-yyyy"
 private const val FORMAT_DATE_AND_TIME = "EEEE,dd-MMMM-yyyy HH:mm:ss a"
 
+const val POSITION = "position"
+
 val timeStampt: String = SimpleDateFormat(
     FILENAME_FORMAT,
     Locale.US

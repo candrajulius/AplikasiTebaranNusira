@@ -13,6 +13,7 @@ import coil.load
 import com.candra.aplikasitebarannusira.R
 import com.candra.aplikasitebarannusira.`object`.Pdf
 import com.candra.aplikasitebarannusira.databinding.InputLayoutBinding
+import com.candra.aplikasitebarannusira.helper.POSITION
 import com.candra.aplikasitebarannusira.helper.createCustomTemptFile
 import com.candra.aplikasitebarannusira.helper.formatDate
 import com.candra.aplikasitebarannusira.helper.uriToFile
@@ -21,7 +22,6 @@ import java.io.File
 
 class InputData: AppCompatActivity()
 {
-
 
     private lateinit var binding: InputLayoutBinding
 
@@ -92,18 +92,36 @@ class InputData: AppCompatActivity()
             val inputNama = namaPenemu.text.toString()
             val nikPenemu = nikPenemu.text.toString()
             val bagian = inputBagianPenemu.text.toString()
+            val isianTemuanCategory = inputIsianKategori.text.toString()
 
             val path = getFile?.absolutePath
 
             val bitmap = BitmapFactory.decodeFile(path)
 
             if (inputLokasi.isEmpty() || inputTemuan.isEmpty() || inputNama.isEmpty() || nikPenemu.isEmpty() ||
-                bagian.isEmpty() || getFile == null)
+                bagian.isEmpty() || getFile == null || isianTemuanCategory.isEmpty())
             {
                 Toast.makeText(this@InputData,"Mohon isi inputan data dengan benar!!",Toast.LENGTH_SHORT).show()
             }else{
-                Pdf.cetakPdf(binding.titleInput.text.toString(),inputLokasi,bitmap,inputTemuan,inputNama,nikPenemu,bagian,this@InputData)
-                binding.btnKirim.isEnabled = true
+                intent.getIntExtra(POSITION,0).let{
+                    when (it) {
+                        1 -> {
+                            Pdf.cetakPdf(binding.titleInput.text.toString(),inputLokasi,bitmap,inputTemuan,inputNama,nikPenemu,bagian,this@InputData,
+                                getString(R.string.isian_kategori),isianTemuanCategory)
+                            binding.btnKirim.isEnabled = true
+                        }
+                        2 -> {
+                            Pdf.cetakPdf(binding.titleInput.text.toString(),inputLokasi,bitmap,inputTemuan,inputNama,nikPenemu,bagian,this@InputData,
+                                getString(R.string.isian_kategori),isianTemuanCategory)
+                            binding.btnKirim.isEnabled = true
+                        }
+                        3 -> {
+                            Pdf.cetakPdf(binding.titleInput.text.toString(),inputLokasi,bitmap,inputTemuan,inputNama,nikPenemu,bagian,this@InputData,
+                                getString(R.string.isian_dampak_lingkungan),isianTemuanCategory)
+                            binding.btnKirim.isEnabled = true
+                        }
+                    }
+                }
             }
         }
 
@@ -121,6 +139,8 @@ class InputData: AppCompatActivity()
                 }
                 3 -> {
                     titleInput.text = resources.getString(R.string.pencemaran)
+                    isianCategory.text = getString(R.string.isian_dampak_lingkungan)
+                    inputIsianKategori.hint = getString(R.string.hint_dampak_lingkungan)
                 }
             }
         }

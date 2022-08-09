@@ -64,7 +64,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="0dp"
-       >
+        >
 
 
         <LinearLayout
@@ -95,6 +95,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
+                            android:contentDescription="@string/gambar_content"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
@@ -107,7 +108,7 @@
                             android:layout_gravity="center"
                             android:layout_marginStart="20dp"
                             android:layout_marginEnd="20dp"
-                            android:text="Mohon isi data dibawah ini dengan benar"
+                            android:text="@string/mohon_isi_data_dibawah_ini_dengan_benar"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
@@ -120,7 +121,7 @@
                         android:layout_marginEnd="5dp"
                         android:layout_marginStart="8dp"
                         android:layout_height="wrap_content"
-                        tools:text="Tanggal skrng"
+                        tools:text="Tanggal sekarang"
                         android:id="@+id/tanggal_skrng"
                         />
 
@@ -136,7 +137,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Lokasi"
+                            android:text="@string/lokasi"
                             android:textSize="14sp" />
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -144,7 +145,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/colorPrimary"
-                            android:hint="Masukan lokasi"
+                            android:hint="@string/masukan_lokasi"
                             android:imeOptions="actionNext"
                             android:inputType="text"
                             android:minHeight="50dp"
@@ -168,10 +169,11 @@
                             android:textStyle="bold"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Masukkan Foto Penemuan"
+                            android:text="@string/masukkan_foto_penemuan"
                             />
 
                         <ImageView
+                            android:contentDescription="@string/gambar_content"
                             android:id="@+id/image_penemu"
                             android:layout_gravity="center"
                             android:layout_width="150dp"
@@ -188,7 +190,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Gallery"
+                                android:text="@string/gallery"
                                 android:backgroundTint="@color/colorPrimary"
                                 android:layout_marginEnd="5dp"
                                 android:id="@+id/btn_gallery"
@@ -201,7 +203,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:backgroundTint="@color/colorPrimary"
-                                android:text="Camera"
+                                android:text="@string/camera"
                                 android:id="@+id/btn_camera"
                                 android:textAllCaps="false"/>
 
@@ -222,7 +224,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Temuan"
+                            android:text="@string/temuan"
                             android:textSize="14sp" />
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -230,10 +232,31 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:backgroundTint="@color/colorPrimary"
-                            android:hint="Masukkan nama penemuan anda"
+                            android:hint="@string/masukkan_nama_penemuan_anda"
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/isian_category"
+                            android:layout_marginTop="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/isian_kategori"
+                            android:textSize="14sp" />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_isian_kategori"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:gravity="top"
+                            android:lines="6"
+                            android:maxLines="6"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:hint="@string/isilah_kategori_atas_temuan_anda"
+                            android:imeOptions="actionDone"
+                            android:inputType="textMultiLine"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -249,7 +272,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Penemu"
+                        android:text="@string/penemu"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="5dp"
                         android:textStyle="bold"
@@ -267,14 +290,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nama"
+                            android:text="@string/nama"
                             android:textSize="14sp" />
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/nama_penemu"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:hint="Nama"
+                            android:hint="@string/nama"
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
@@ -294,7 +317,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nik"
+                            android:text="@string/nik"
                             android:textSize="14sp" />
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -302,7 +325,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:backgroundTint="@color/colorPrimary"
-                            android:hint="Nik"
+                            android:hint="@string/nik"
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
@@ -322,7 +345,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bagian"
+                            android:text="@string/bagian"
                             android:textSize="14sp" />
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -330,7 +353,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:backgroundTint="@color/colorPrimary"
-                            android:hint="Bagian"
+                            android:hint="@string/bagian"
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
@@ -353,14 +376,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_margin="30dp"
-                    android:text="Cetak PDF"
+                    android:text="@string/cetak_pdf"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:theme="@style/Theme.MaterialComponents"
                     app:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="50dp"
-                    app:elevation="5dp" />
+                    app:elevation="5dp"
+                    tools:ignore="NestedWeights" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_kirim"
@@ -368,7 +392,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_margin="30dp"
-                    android:text="Kirim"
+                    android:text="@string/kirim"
                     app:backgroundTint="@color/colorPrimary"
                     android:textAllCaps="false"
                     android:theme="@style/Theme.MaterialComponents"

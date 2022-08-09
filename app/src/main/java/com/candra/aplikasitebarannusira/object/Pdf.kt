@@ -26,17 +26,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 @SuppressLint("ObsoleteSdkInt")
 object Pdf{
-    fun cetakPdf(namePath: String,lokasi: String,gambar: Bitmap,temuan: String,namaPenemu: String,nikPenemu: String,bagianPenemu: String, context: Context){
+    fun cetakPdf(namePath: String,lokasi: String,gambar: Bitmap,temuan: String,namaPenemu: String,nikPenemu: String,bagianPenemu: String, context: Context
+                 ,temuanCategory: String,isianTemuanCategory: String)
+    {
 
 
         val storage = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
 
-        val simpleDateFormat = SimpleDateFormat("EEEE,dd-MMM-yyyy",Locale.getDefault()).format(
+        val simpleDateFormat = SimpleDateFormat("EEEE,dd-MMMM-yyyy",Locale.getDefault()).format(
             Date()
         )
 
         val fileDate = File(storage, "$simpleDateFormat $namePath.pdf")
-
 
 
         val writer = PdfWriter(fileDate)
@@ -52,15 +53,16 @@ object Pdf{
             TextAlignment.LEFT
         )
 
-       val dateAndTime = Paragraph("Dibuat pada tanggal :$simpleDateFormat dan waktu: $waktu").setFontSize(18F).setTextAlignment(
-           TextAlignment.LEFT)
+        val dateAndTime = Paragraph("Dibuat pada tanggal :$simpleDateFormat dan waktu: $waktu").setFontSize(18F).setTextAlignment(
+            TextAlignment.LEFT)
 
-        val width = floatArrayOf(100F,100F,100F,100F,100F,100F)
+        val width = floatArrayOf(100F,100F,100F,100F,100F,100F,100F)
         val tableData = Table(width).setVerticalAlignment(VerticalAlignment.MIDDLE)
 
         tableData.addCell(Cell().add(Paragraph("Lokasi")))
         tableData.addCell(Cell().add(Paragraph("Foto Temuan")))
         tableData.addCell(Cell().add(Paragraph("Temuan")))
+        tableData.addCell(Cell().add(Paragraph(temuanCategory)))
         tableData.addCell(Cell().add(Paragraph("Nama Penemu")))
         tableData.addCell(Cell().add(Paragraph("Nik Penemu")))
         tableData.addCell(Cell().add(Paragraph("Bagian Penemu")))
@@ -74,6 +76,7 @@ object Pdf{
         val image = Image(imageData).setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(150F).setHeight(150F)
         tableData.addCell(Cell().add(image))
         tableData.addCell(Cell().add(Paragraph(temuan)))
+        tableData.addCell(Cell().add(Paragraph(isianTemuanCategory)))
         tableData.addCell(Cell().add(Paragraph(namaPenemu)))
         tableData.addCell(Cell().add(Paragraph(nikPenemu)))
         tableData.addCell(Cell().add(Paragraph(bagianPenemu)))
@@ -90,7 +93,7 @@ object Pdf{
 
     fun sharePdf(namePath: String, context: Context){
 
-        val simpleDateFormat = SimpleDateFormat("EEEE,dd-MMM-yyyy",Locale.getDefault()).format(
+        val simpleDateFormat = SimpleDateFormat("EEEE,dd-MMMM-yyyy",Locale.getDefault()).format(
             Date()
         )
 
@@ -100,13 +103,13 @@ object Pdf{
         val filePath = File(storage,"$simpleDateFormat $namePath.pdf")
 
 
-       val pdfUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+        val pdfUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
             FileProvider.getUriForFile(context,context.packageName + ".provider",filePath)
         }else{
             Uri.fromFile(filePath)
         }
 
-       Intent(Intent.ACTION_SEND).apply {
+        Intent(Intent.ACTION_SEND).apply {
             type = "application/pdf"
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             putExtra(Intent.EXTRA_STREAM,pdfUri)
