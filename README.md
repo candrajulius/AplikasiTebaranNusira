@@ -2,6 +2,7 @@
 Memberikan komentar bagi mereka yang menemukan sesuatu di lingkungan kerja yang menyebabkan pencemaran lingkungan
 
 ## Feature
+- Temu 5 R
 - Tindakan Bahaya
 - Kondisi Bahaya
 - Pencemaran
