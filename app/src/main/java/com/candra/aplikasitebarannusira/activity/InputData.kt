@@ -103,28 +103,11 @@ class InputData: AppCompatActivity()
             {
                 Toast.makeText(this@InputData,getString(R.string.mohon_isi_inputan_dengan_benar),Toast.LENGTH_SHORT).show()
             }else{
-                intent.getIntExtra(POSITION,0).let{
-                    when (it) {
-                        1 -> {
-                            Pdf.cetakPdf(binding.titleInput.text.toString(),inputLokasi,bitmap,inputTemuan,inputNama,nikPenemu,bagian,this@InputData,
-                                getString(R.string.isian_kategori),isianTemuanCategory)
-                            binding.btnKirim.isEnabled = true
-                        }
-                        2 -> {
-                            Pdf.cetakPdf(binding.titleInput.text.toString(),inputLokasi,bitmap,inputTemuan,inputNama,nikPenemu,bagian,this@InputData,
-                                getString(R.string.isian_kategori),isianTemuanCategory)
-                            binding.btnKirim.isEnabled = true
-                        }
-                        3 -> {
-                            Pdf.cetakPdf(binding.titleInput.text.toString(),inputLokasi,bitmap,inputTemuan,inputNama,nikPenemu,bagian,this@InputData,
-                                getString(R.string.isian_kategori),isianTemuanCategory)
-                            binding.btnKirim.isEnabled = true
-                        }
-                    }
-                }
+                Pdf.cetakPdf(binding.titleInput.text.toString(),inputLokasi,bitmap,inputTemuan,inputNama,nikPenemu,bagian,this@InputData,
+                    getString(R.string.isian_kategori),isianTemuanCategory)
+                binding.btnKirim.isEnabled = true
             }
         }
-
     }
 
     private fun setToolbar(){
