@@ -1,5 +1,5 @@
 # AplikasiTebaranNusira
-Memberikan komentar bagi mereka yang menemukan sesuatu di lingkungan kerja yang menyebabkan pencemaran lingkungan
+Leave a comment for those who find something in the work environment that causes environmental pollution
 
 ## Feature
 - Temu 5 R
@@ -15,5 +15,5 @@ Memberikan komentar bagi mereka yang menemukan sesuatu di lingkungan kerja yang 
 * [Candra Julius Sinaga](https://code.cjsflow.com/) -> **Programmer**
 
 ## Download App
-* [Version 1.0](https://github.com/candrajulius/AplikasiTebaranNusira/releases/tag/1.0) -> **App Version**
+* [Version 1.5](https://github.com/candrajulius/AplikasiTebaranNusira/releases/tag/1.5) -> **App Version**
 
