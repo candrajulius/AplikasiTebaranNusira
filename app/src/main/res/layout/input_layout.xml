@@ -39,6 +39,19 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize">
 
+            <ImageView
+                android:contentDescription="@string/gambar_content"
+                android:layout_width="45dp"
+                android:layout_marginBottom="5dp"
+                android:layout_height="45dp"
+                android:src="@color/teal_200"
+                app:layout_constraintEnd_toStartOf="@id/title_input"
+                app:layout_constraintTop_toTopOf="@id/title_input"
+                app:layout_constraintBottom_toBottomOf="@id/title_input"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/img_title" />
+
+
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:id="@+id/title_input"
@@ -103,6 +116,8 @@
                             android:src="@drawable/ic_baseline_info" />
 
                         <TextView
+                            android:lineSpacingExtra="5sp"
+                            android:fontFamily="sans-serif-condensed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -297,7 +312,7 @@
                             android:id="@+id/nama_penemu"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:hint="@string/nama"
+                            android:hint="@string/hint_name"
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
@@ -325,7 +340,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:backgroundTint="@color/colorPrimary"
-                            android:hint="@string/nik"
+                            android:hint="@string/hint_nik"
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"
@@ -353,7 +368,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:backgroundTint="@color/colorPrimary"
-                            android:hint="@string/bagian"
+                            android:hint="@string/hint_bagian"
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:maxLines="1"

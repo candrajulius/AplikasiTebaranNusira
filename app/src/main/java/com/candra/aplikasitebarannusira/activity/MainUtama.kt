@@ -13,6 +13,7 @@ import androidx.core.app.ActivityOptionsCompat
 import com.candra.aplikasitebarannusira.R
 import com.candra.aplikasitebarannusira.`object`.Animation
 import com.candra.aplikasitebarannusira.databinding.ActivityMainBinding
+import com.candra.aplikasitebarannusira.helper.POSITION
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -37,30 +38,38 @@ class MainUtama: AppCompatActivity()
 
 
 
-        Animation.playAnimationContentMain(
-            binding.tindakanBahaya,
-            binding.kondisiBahaya,
-            binding.pencemaran,
-            binding.titleText
-        )
+        binding.apply {
+            Animation.playAnimationContentMain(
+                tindakanBahaya,
+                kondisiBahaya,
+                pencemaran,
+                titleText,
+                temu5R
+            )
+        }
     }
 
     private fun setClickItemCardView() {
 
         with(binding){
+            temu5R.setOnClickListener {
+                Intent(this@MainUtama,InputData::class.java).apply {
+                    putExtra(POSITION,4)
+                }.also { startActivity(it,ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainUtama).toBundle()) }
+            }
             tindakanBahaya.setOnClickListener {
                 val intent = Intent(this@MainUtama, InputData::class.java)
-                intent.putExtra("position", 1)
+                intent.putExtra(POSITION, 1)
                 startActivity(intent,ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainUtama).toBundle())
             }
             kondisiBahaya.setOnClickListener {
                 val intent = Intent(this@MainUtama, InputData::class.java)
-                intent.putExtra("position", 2)
+                intent.putExtra(POSITION, 2)
                 startActivity(intent,ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainUtama).toBundle())
             }
             pencemaran.setOnClickListener {
                 val intent = Intent(this@MainUtama, InputData::class.java)
-                intent.putExtra("position", 3)
+                intent.putExtra(POSITION, 3)
                 startActivity(intent,ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainUtama).toBundle())
             }
         }
@@ -77,7 +86,7 @@ class MainUtama: AppCompatActivity()
                 object: MultiplePermissionsListener{
                     override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
                         if (p0?.areAllPermissionsGranted() == true){
-                            Toast.makeText(this@MainUtama,"Permission diizinkan",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@MainUtama,getString(R.string.permission_acccess),Toast.LENGTH_SHORT).show()
                         }else{
                             showDialogPermissionGranted()
                         }
@@ -101,7 +110,7 @@ class MainUtama: AppCompatActivity()
                     "SIlahkan tekan tombol Peri Ke Setting untuk mengaktifkan perizinan")
             .setTitle("Peringatan")
             .setIcon(R.mipmap.ic_launcher)
-            .setPositiveButton("Pergi Ke Setting"){_,_ ->
+            .setPositiveButton(getString(R.string.go_setting)){_,_ ->
 
                 try {
                     intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
@@ -114,7 +123,7 @@ class MainUtama: AppCompatActivity()
                 }
 
             }
-            .setNegativeButton("CANCEL"){dialog,_ ->
+            .setNegativeButton(getString(R.string.cancel)){dialog,_ ->
                 dialog.dismiss()
                 exitProcess(0)
             }.show()

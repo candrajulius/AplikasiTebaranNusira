@@ -88,7 +88,7 @@ object Pdf{
 
         document.close()
 
-        Animation.showDialog(context = context,storage.toString())
+        Animation.showDialog(context = context)
     }
 
     fun sharePdf(namePath: String, context: Context){

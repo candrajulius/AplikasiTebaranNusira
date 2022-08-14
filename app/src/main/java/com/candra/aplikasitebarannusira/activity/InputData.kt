@@ -101,7 +101,7 @@ class InputData: AppCompatActivity()
             if (inputLokasi.isEmpty() || inputTemuan.isEmpty() || inputNama.isEmpty() || nikPenemu.isEmpty() ||
                 bagian.isEmpty() || getFile == null || isianTemuanCategory.isEmpty())
             {
-                Toast.makeText(this@InputData,"Mohon isi inputan data dengan benar!!",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@InputData,getString(R.string.mohon_isi_inputan_dengan_benar),Toast.LENGTH_SHORT).show()
             }else{
                 intent.getIntExtra(POSITION,0).let{
                     when (it) {
@@ -117,7 +117,7 @@ class InputData: AppCompatActivity()
                         }
                         3 -> {
                             Pdf.cetakPdf(binding.titleInput.text.toString(),inputLokasi,bitmap,inputTemuan,inputNama,nikPenemu,bagian,this@InputData,
-                                getString(R.string.isian_dampak_lingkungan),isianTemuanCategory)
+                                getString(R.string.isian_kategori),isianTemuanCategory)
                             binding.btnKirim.isEnabled = true
                         }
                     }
@@ -128,19 +128,24 @@ class InputData: AppCompatActivity()
     }
 
     private fun setToolbar(){
-        val position = intent.getIntExtra("position",0)
+        val position = intent.getIntExtra(POSITION,0)
         binding.apply {
             when (position) {
                 1 -> {
+                    imgTitle.setImageResource(R.drawable.tindakan_bahaya)
                     titleInput.text = resources.getString(R.string.tindakan_bahaya)
                 }
                 2 -> {
+                    imgTitle.setImageResource(R.drawable.kondisi_bahaya)
                     titleInput.text = resources.getString(R.string.kondisi_bahaya)
                 }
                 3 -> {
+                    imgTitle.setImageResource(R.drawable.pencemaran)
                     titleInput.text = resources.getString(R.string.pencemaran)
-                    isianCategory.text = getString(R.string.isian_dampak_lingkungan)
-                    inputIsianKategori.hint = getString(R.string.hint_dampak_lingkungan)
+                }
+                4 -> {
+                    imgTitle.setImageResource(R.drawable.menu_5_r)
+                    titleInput.text = getString(R.string.temu_5_r)
                 }
             }
         }

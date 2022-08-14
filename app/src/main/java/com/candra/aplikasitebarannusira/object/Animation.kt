@@ -24,20 +24,21 @@ object Animation {
         }.start()
     }
 
-    fun playAnimationContentMain(cardView: MaterialCardView,cardView2: MaterialCardView,cardView3: MaterialCardView,title: MaterialTextView){
+    fun playAnimationContentMain(cardView: MaterialCardView,cardView2: MaterialCardView,cardView3: MaterialCardView,title: MaterialTextView,cardView4: MaterialCardView){
         val tindakanBahaya = ObjectAnimator.ofFloat(cardView,View.ALPHA,1f).setDuration(500)
         val kondisiBahaya = ObjectAnimator.ofFloat(cardView2,View.ALPHA,1f).setDuration(500)
         val pencemaran = ObjectAnimator.ofFloat(cardView3,View.ALPHA,1f).setDuration(500)
+        val temu_5_r = ObjectAnimator.ofFloat(cardView4,View.ALPHA,1f).setDuration(500)
         val title_menu = ObjectAnimator.ofFloat(title,View.ALPHA,1f).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(title_menu,tindakanBahaya,kondisiBahaya,pencemaran)
+            playSequentially(title_menu,temu_5_r,tindakanBahaya,kondisiBahaya,pencemaran)
             start()
         }
     }
 
     @SuppressLint("SetTextI18n")
-    fun showDialog(context: Context, file: String){
+    fun showDialog(context: Context){
         val builder = AlertDialog.Builder(context, R.style.AlertDialogTheme)
 
         val view = LayoutInflater.from(context).inflate(
@@ -52,16 +53,13 @@ object Animation {
             findViewById<ImageButton>(R.id.btn_close).setOnClickListener {
                 alertDialog.dismiss()
             }
-
-            findViewById<MaterialTextView>(R.id.textFolder).text = "File anda berada di: $file"
+            findViewById<MaterialTextView>(R.id.textFolder).text = context.getString(R.string.document_memory_hp)
         }
 
         alertDialog.window?.let {
             alertDialog.window!!.setBackgroundDrawable(ColorDrawable(0))
         }
-
         alertDialog.show()
-
     }
 
 }
