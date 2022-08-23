@@ -7,6 +7,9 @@ Leave a comment for those who find something in the work environment that causes
 - Kondisi Bahaya
 - Pencemaran
 
+## Screnshot App
+<img src="https://raw.githubusercontent.com/candrajulius/AplikasiTebaranNusira/master/SS_APP_TEBARAN_NUSIRA.jpeg" />
+
 ## Library Used
 * [Material Design](https://coil-kt.github.io/coil/) -> **Design**
 * [iTextPDF](https://itextpdf.com/en/resources/api-documentation) -> **PDF**
